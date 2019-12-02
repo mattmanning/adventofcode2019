@@ -1,0 +1,18 @@
+str = File.open('input').readlines[0].strip
+arr = str.split(',').map(&:to_i)
+
+pos = 0
+
+arr[1] = 12
+arr[2] = 2
+
+while arr[pos] != 99 do
+  if arr[pos] == 1
+    arr[arr[pos+3]] = arr[arr[pos+1]] + arr[arr[pos+2]]
+  elsif arr[pos] == 2
+    arr[arr[pos+3]] = arr[arr[pos+1]] * arr[arr[pos+2]]
+  end
+  pos += 4
+end
+
+puts arr[0]
