@@ -2,12 +2,6 @@ lines = File.open('input').readlines
 wire1 = lines[0].strip.split(',')
 wire2 = lines[1].strip.split(',')
 
-# wire1 = 'R75,D30,R83,U83,L12,D49,R71,U7,L72'.strip.split(',')
-# wire2 = 'U62,R66,U55,R34,D71,R55,D58,R83'.strip.split(',')
-
-# wire1 = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51'.strip.split(',')
-# wire2 = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7'.strip.split(',')
-
 $grid = Hash.new
 $steps_grid = Hash.new(0)
 
