@@ -41,15 +41,14 @@ def trace(vector, wire)
 end
 
 def mark(x, y, wire)
+  $steps += 1
   case $grid[[x,y]]
   when nil
-    $steps += 1
     $grid[[x,y]] = wire
     $steps_grid[[x,y]] = $steps
   when wire
   when 'both'
   else
-    $steps += 1
     $grid[[x,y]] = 'both'
     $steps_grid[[x,y]] += $steps
   end

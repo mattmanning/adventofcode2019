@@ -11,23 +11,24 @@ def trace(vector, wire)
   direction = vector[0]
   mag = vector[1..-1].to_i
 
+  dx = 0
+  dy = 0
+
   case direction
   when 'U'
-    new_y = $y + mag
-    $y.upto(new_y) { |i| mark($x, i, wire) }
-    $y = new_y
+    dy = 1
   when 'D'
-    new_y = $y - mag
-    $y.downto(new_y) { |i| mark($x, i, wire) }
-    $y = new_y
+    dy = -1
   when 'L'
-    new_x = $x - mag
-    $x.downto(new_x) { |i| mark(i, $y, wire) }
-    $x = new_x
+    dx = -1
   when 'R'
-    new_x = $x + mag
-    $x.upto(new_x) { |i| mark(i, $y, wire) }
-    $x = new_x
+    dx = 1
+  end
+
+  mag.times do |i|
+    $x += dx
+    $y += dy
+    mark($x, $y, wire)
   end
 end
 
