@@ -3,8 +3,6 @@ $orbits = File.open('input').inject({}) do |hsh, line|
   hsh.merge({ objects[1] => objects[0] })
 end
 
-puts $orbits.inspect
-
 def count(sum, obj)
   if obj == "COM"
     sum
