@@ -13,7 +13,7 @@ class Instruction
 end
 
 class Computer
-  attr_accessor :inputs, :out_amp
+  attr_accessor :inputs, :out_amp, :output
 
   def initialize(program_file, out_amp=nil)
     @program_file = program_file
@@ -44,16 +44,12 @@ class Computer
         @arr[@arr[@pos+3]] = param(1) * param(2)
         @pos += 4
       when 3 # input
-        while @inputs.length == 0 do end # block for input
         @arr[@arr[@pos+1]] = @inputs.shift
         @pos += 2
       when 4 # output 
-        output = param(1)
-        if @out_amp
-          @out_amp.inputs.push(output)
-          return @out_amp.compute
-        end
+        @output = param(1)
         @pos += 2
+        return @out_amp.compute(output) if @out_amp
       when 5 # jump if true
         if !param(1).zero?
           @pos = param(2)
@@ -74,16 +70,17 @@ class Computer
         @pos += 4
       end
     end
-    return output
+    return @output
   end
 end
 
-totals = [0,1,2,3,4].permutation.map do |perm|
+totals = [5,6,7,8,9].permutation.map do |perm|
   ampE = Computer.new('input')
   ampD = Computer.new('input', ampE)
   ampC = Computer.new('input', ampD)
   ampB = Computer.new('input', ampC)
   ampA = Computer.new('input', ampB)
+  ampE.out_amp = ampA
 
   ampA.inputs.push(perm[0], 0)
   ampB.inputs.push(perm[1])
@@ -91,6 +88,7 @@ totals = [0,1,2,3,4].permutation.map do |perm|
   ampD.inputs.push(perm[3])
   ampE.inputs.push(perm[4])
   ampA.compute
+  ampE.output
 end
 
 puts totals.max.inspect
