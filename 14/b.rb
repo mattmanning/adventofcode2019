@@ -26,8 +26,8 @@ end
 
 
 @hsh = Hash.new(0)
-# Used Newton's Method to find this number that outputs just slightly less than
-# 1 trillion
+# Used Newton's Method to manually find this number that outputs just slightly
+# less than 1 trillion
 @hsh['FUEL'] = 6_972_986
 
 def fuel_complete
